@@ -1,0 +1,32 @@
+@model IEnumerable<Docking>
+
+@{
+    ViewBag.Title = "Docking";
+}
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="well">
+            <a asp-action="New" class="btn btn-primary">Dock a ship...</a>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    @foreach (var docking in Model)
+    {
+        <div class="col-md-3">
+            <div class="panel panel-info">
+                <div class="panel-heading">
+                    Bay @docking.Bay
+                </div>
+                <div class="panel-body">
+                    @docking.ShipName
+                </div>
+                <div class="panel-footer">
+                    <button class="btn btn-danger btn-xs undock-button" data-docking-id="@docking.Id">Undock</button>
+                </div>
+            </div>
+        </div>
+    }
+</div>

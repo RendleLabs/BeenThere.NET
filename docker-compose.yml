@@ -1,0 +1,33 @@
+version: '2'
+
+services:
+  mssql:
+    image: 'microsoft/mssql-server-linux'
+    environment:
+      ACCEPT_EULA: 'Y'
+      SA_PASSWORD: 'S3cr3tSqu1rr3l'
+    networks:
+      - rsnet
+
+  rocketstop_docking:
+    image: 'local/rs_dock'
+    build: 'src/RocketStop.DockingService'
+    environment:
+      ConnectionStrings__DockingDb: 'data source=mssql;initial catalog=dockingdb;integrated security=false;user id=sa;password=S3cr3tSqu1rr3l'
+      ConnectionStrings__DockingDbServer: 'data source=mssql;integrated security=false;user id=sa;password=S3cr3tSqu1rr3l'
+    networks:
+      - rsnet
+  
+  rocketstop:
+    image: 'local/rs'
+    build: 'src/RocketStop'
+    environment:
+      Services__Docking: 'http://rocketstop_docking'
+    networks:
+      - rsnet
+    ports:
+      - 8081:80
+
+networks: 
+  rsnet:
+    driver: 'bridge'

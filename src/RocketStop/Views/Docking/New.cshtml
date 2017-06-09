@@ -1,0 +1,42 @@
+@model NewDockingViewModel
+
+@{
+    ViewBag.Title = "New Docking";
+}
+
+<form asp-action="Create" method="POST">
+
+    <div class="row">
+        <div class="col-md-8 col-md-offset-2">
+            
+            <div class="panel panel-info">
+                <div class="panel-heading">
+                    New Docking Entry:
+                </div>
+                <div class="panel-body">
+
+                    <div class="form-group">
+                        <label for="Bay">Bay:</label>
+                        <select asp-for="Bay" asp-items="Model.Bays" class="form-control"></select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="ShipName">Ship:</label>
+                        <input class="form-control" asp-for="ShipName">
+                    </div>
+
+                </div>
+
+                <div class="panel-footer">
+                    <div class="text-right">
+                        <button class="btn btn-success">
+                            Dock!
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</form>
